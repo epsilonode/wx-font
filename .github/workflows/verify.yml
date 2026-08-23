@@ -1,10 +1,6 @@
 name: Verify release bundle
 
-on:
-  push:
-    branches: [main]
-    tags: ['v*']
-  pull_request:
+on: workflow_dispatch
 
 jobs:
   verify:
