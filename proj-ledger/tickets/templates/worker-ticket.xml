@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ticket schema="ticket.v2" id="T001-example" status="open">
+  <identity>
+    You are the worker for this ticket. Complete it if cleanly possible; otherwise surface blockers fast.
+    Do not spawn child agents, coordinate unrelated tickets, commit, push, or store secrets.
+    Report completion by updating this XML ticket.
+  </identity>
+
+  <origin>
+    <roadmap>replace-roadmap-id</roadmap>
+    <roadmap_item>replace-roadmap-item-heading</roadmap_item>
+  </origin>
+
+  <assignment>
+    <assigned_by>human</assigned_by>
+    <agent_name></agent_name>
+    <agent_model></agent_model>
+    <assigned_at></assigned_at>
+  </assignment>
+
+  <work_ethos>
+    Move fast inside the lane. Guardrails are coordination guidance to avoid clobbering other agents, not a hard sandbox.
+    If the task clearly requires touching outside the lane, do it narrowly and explain why in the result.
+  </work_ethos>
+
+  <lane_guidance>
+    <path>replace/with/primary/path/**</path>
+    <path>proj-ledger/tickets/active/T001-example.xml</path>
+  </lane_guidance>
+
+  <guardrails>
+    <item>Prefer staying inside lane_guidance to avoid colliding with other agents.</item>
+    <item>If touching outside lane_guidance is necessary, do it narrowly and explain why.</item>
+    <item>Do not overwrite unrelated user or agent changes.</item>
+    <item>Do not leave long-lived processes running.</item>
+    <item>Do not modify external repos unless the ticket explicitly says so.</item>
+    <item>Do not write durable memories, roadmap entries, logs, commands.xml, or workflow docs unless explicitly instructed. Put proposed durable content under this ticket's attachments folder instead.</item>
+    <item>Do not create, rename, delete, or assign tickets. Put follow-up recommendations in this ticket; the orchestrator owns ticket creation.</item>
+    <item>Do not edit proj-ledger/tools.yaml or proj-ledger/commands.xml; record command discoveries in this ticket.</item>
+  </guardrails>
+
+  <tool_policy>
+    Before project commands or missing-runtime conclusions, read proj-ledger/tools.yaml, inspect the relevant manifest for the canonical command/task name, then grep proj-ledger/commands.xml by that name.
+  </tool_policy>
+
+  <context_refs>
+    <path>proj-ledger/tools.yaml</path>
+    <!-- Add task-specific context only. Do not add orchestrator workflow docs. -->
+  </context_refs>
+
+  <prompt><![CDATA[
+Replace with worker-specific instructions.
+
+When done, set root ticket status to returned and set worker_result status to completed, partial, blocked, or deficient.
+Fill summary, changed_files, checks, risks, next, and commands_run.
+Use attachments only when they add signal. Put files under `proj-ledger/tickets/attachments/` and link them from this ticket; do not inline long attachments in XML.
+]]></prompt>
+
+  <worker_result status="pending">
+    <summary><![CDATA[]]></summary>
+    <changed_files>
+    </changed_files>
+    <checks>
+    </checks>
+    <risks><![CDATA[]]></risks>
+    <next><![CDATA[]]></next>
+    <blockers optional="true"><![CDATA[]]></blockers>
+    <validation_notes optional="true"><![CDATA[]]></validation_notes>
+    <commands_run optional="true"><![CDATA[
+List commands you ran in any clear, copyable form. Include cwd/context if non-obvious.
+    ]]></commands_run>
+    <deficiency_report optional="true" required_when_status="deficient partial blocked">
+      <finding><![CDATA[]]></finding>
+      <evidence>
+      </evidence>
+      <impact><![CDATA[]]></impact>
+      <recommended_orchestrator_action><![CDATA[]]></recommended_orchestrator_action>
+    </deficiency_report>
+    <attachments optional="true">
+    </attachments>
+  </worker_result>
+
+  <orchestrator_closeout status="pending">
+    <verified_by></verified_by>
+    <verification><![CDATA[]]></verification>
+    <corrective_actions><![CDATA[]]></corrective_actions>
+    <follow_up_work><![CDATA[]]></follow_up_work>
+    <promotions><![CDATA[]]></promotions>
+    <agent_feedback><![CDATA[]]></agent_feedback>
+  </orchestrator_closeout>
+
+  <history>
+    <event at="YYYY-MM-DDTHH:MM:SSZ" by="orchestrator">created</event>
+  </history>
+</ticket>

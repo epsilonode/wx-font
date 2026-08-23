@@ -1,0 +1,681 @@
+{
+  "source": "abstract/icon-map.html:getWeatherMapping,getCloudDescriptorAndIcon",
+  "cloudNormalization": [
+    {
+      "maximumPercent": 3,
+      "okta": 0,
+      "descriptor": "Clear",
+      "category": "CLR",
+      "friendlyModifier": "wx-clear",
+      "aviationModifier": "wx-clr",
+      "ceilingRelevant": false,
+      "dayGlyph": "clear-day",
+      "nightGlyph": "clear-night"
+    },
+    {
+      "maximumPercent": 9,
+      "okta": 1,
+      "descriptor": "Few Clouds",
+      "category": "FEW",
+      "friendlyModifier": "wx-few-clouds",
+      "aviationModifier": "wx-few",
+      "ceilingRelevant": false,
+      "dayGlyph": "few-clouds-day",
+      "nightGlyph": "few-clouds-night"
+    },
+    {
+      "maximumPercent": 24,
+      "okta": 2,
+      "descriptor": "Few Clouds",
+      "category": "FEW",
+      "friendlyModifier": "wx-few-clouds",
+      "aviationModifier": "wx-few",
+      "ceilingRelevant": false,
+      "dayGlyph": "few-clouds-day",
+      "nightGlyph": "few-clouds-night"
+    },
+    {
+      "maximumPercent": 49,
+      "okta": 4,
+      "descriptor": "Partly Cloudy",
+      "category": "SCT",
+      "friendlyModifier": "wx-partly-cloudy",
+      "aviationModifier": "wx-sct",
+      "ceilingRelevant": false,
+      "dayGlyph": "partly-cloudy",
+      "nightGlyph": "partly-cloudy"
+    },
+    {
+      "maximumPercent": 75,
+      "okta": 6,
+      "descriptor": "Mostly Cloudy",
+      "category": "BKN",
+      "friendlyModifier": "wx-mostly-cloudy",
+      "aviationModifier": "wx-bkn",
+      "ceilingRelevant": true,
+      "dayGlyph": "mostly-cloudy",
+      "nightGlyph": "mostly-cloudy"
+    },
+    {
+      "maximumPercent": null,
+      "okta": 8,
+      "descriptor": "Overcast",
+      "category": "OVC",
+      "friendlyModifier": "wx-overcast",
+      "aviationModifier": "wx-ovc",
+      "ceilingRelevant": true,
+      "dayGlyph": "overcast",
+      "nightGlyph": "overcast"
+    }
+  ],
+  "dynamicRules": [
+    {
+      "codes": [
+        0,
+        3
+      ],
+      "usesCloudCoverWhenValid": true,
+      "fallbackDayGlyph": "clear-day",
+      "fallbackNightGlyph": "clear-night"
+    },
+    {
+      "codes": [
+        20,
+        29
+      ],
+      "usesCloudCoverWhenValid": true,
+      "fallbackDayGlyph": "partly-cloudy",
+      "fallbackNightGlyph": "partly-cloudy"
+    }
+  ],
+  "staticRules": [
+    [
+      4,
+      4,
+      "smoke",
+      "smoke"
+    ],
+    [
+      5,
+      5,
+      "day-haze",
+      "day-haze"
+    ],
+    [
+      6,
+      8,
+      "dust",
+      "dust"
+    ],
+    [
+      9,
+      9,
+      "sandstorm",
+      "sandstorm"
+    ],
+    [
+      10,
+      12,
+      "fog",
+      "fog"
+    ],
+    [
+      13,
+      13,
+      "lightning",
+      "lightning"
+    ],
+    [
+      14,
+      16,
+      "showers",
+      "showers"
+    ],
+    [
+      17,
+      17,
+      "thunderstorm",
+      "thunderstorm"
+    ],
+    [
+      18,
+      18,
+      "strong-wind",
+      "strong-wind"
+    ],
+    [
+      19,
+      19,
+      "tornado",
+      "tornado"
+    ],
+    [
+      30,
+      35,
+      "sandstorm",
+      "sandstorm"
+    ],
+    [
+      36,
+      37,
+      "snow-wind",
+      "snow-wind"
+    ],
+    [
+      38,
+      39,
+      "snowflake-cold",
+      "snowflake-cold"
+    ],
+    [
+      40,
+      49,
+      "fog",
+      "fog"
+    ],
+    [
+      50,
+      55,
+      "sprinkle",
+      "sprinkle"
+    ],
+    [
+      56,
+      59,
+      "rain-mix",
+      "rain-mix"
+    ],
+    [
+      60,
+      65,
+      "rain",
+      "rain"
+    ],
+    [
+      66,
+      67,
+      "rain-wind",
+      "rain-wind"
+    ],
+    [
+      68,
+      69,
+      "sleet",
+      "sleet"
+    ],
+    [
+      70,
+      75,
+      "snow",
+      "snow"
+    ],
+    [
+      76,
+      78,
+      "snowflake-cold",
+      "snowflake-cold"
+    ],
+    [
+      79,
+      79,
+      "sleet",
+      "sleet"
+    ],
+    [
+      80,
+      82,
+      "showers",
+      "showers"
+    ],
+    [
+      83,
+      84,
+      "storm-showers",
+      "storm-showers"
+    ],
+    [
+      85,
+      86,
+      "snow-wind",
+      "snow-wind"
+    ],
+    [
+      87,
+      90,
+      "hail",
+      "hail"
+    ],
+    [
+      91,
+      92,
+      "rain",
+      "rain"
+    ],
+    [
+      93,
+      94,
+      "rain-mix",
+      "rain-mix"
+    ],
+    [
+      95,
+      95,
+      "thunderstorm",
+      "thunderstorm"
+    ],
+    [
+      96,
+      96,
+      "hail",
+      "hail"
+    ],
+    [
+      97,
+      98,
+      "thunderstorm",
+      "thunderstorm"
+    ],
+    [
+      99,
+      99,
+      "hail",
+      "hail"
+    ]
+  ],
+  "staticDescriptions": [
+    [
+      4,
+      4,
+      "Smoke"
+    ],
+    [
+      5,
+      5,
+      "Haze"
+    ],
+    [
+      6,
+      8,
+      "Blowing Dust / Sand"
+    ],
+    [
+      9,
+      9,
+      "Dust / Sandstorm"
+    ],
+    [
+      10,
+      12,
+      "Mist/Shallow Fog"
+    ],
+    [
+      13,
+      13,
+      "Lightning (No Thunder)"
+    ],
+    [
+      14,
+      16,
+      "Distant Precipitation"
+    ],
+    [
+      17,
+      17,
+      "Thunderstorm (No Precipitation)"
+    ],
+    [
+      18,
+      18,
+      "Squalls"
+    ],
+    [
+      19,
+      19,
+      "Funnel Cloud / Tornado"
+    ],
+    [
+      30,
+      35,
+      "Blowing Dust/Sand Storm"
+    ],
+    [
+      36,
+      37,
+      "Drifting Snow (Low)"
+    ],
+    [
+      38,
+      39,
+      "Blowing Snow (High)"
+    ],
+    [
+      40,
+      49,
+      "Fog"
+    ],
+    [
+      50,
+      55,
+      "Light Drizzle"
+    ],
+    [
+      56,
+      59,
+      "Freezing Drizzle"
+    ],
+    [
+      60,
+      65,
+      "Steady Rain"
+    ],
+    [
+      66,
+      67,
+      "Freezing Rain"
+    ],
+    [
+      68,
+      69,
+      "Rain & Snow Mix"
+    ],
+    [
+      70,
+      75,
+      "Steady Snow"
+    ],
+    [
+      76,
+      78,
+      "Diamond Dust / Snow Grains"
+    ],
+    [
+      79,
+      79,
+      "Ice Pellets"
+    ],
+    [
+      80,
+      82,
+      "Rain Showers"
+    ],
+    [
+      83,
+      84,
+      "Mixed Showers"
+    ],
+    [
+      85,
+      86,
+      "Snow showers"
+    ],
+    [
+      87,
+      90,
+      "Ice pellets or hail showers"
+    ],
+    [
+      91,
+      92,
+      "Rain; thunderstorm during preceding hour"
+    ],
+    [
+      93,
+      94,
+      "Snow/rain mix or hail; thunderstorm during preceding hour"
+    ],
+    [
+      95,
+      95,
+      "Active thunderstorm without hail"
+    ],
+    [
+      96,
+      96,
+      "Active thunderstorm with hail"
+    ],
+    [
+      97,
+      97,
+      "Heavy thunderstorm without hail"
+    ],
+    [
+      98,
+      98,
+      "Active thunderstorm with dust/sandstorm"
+    ],
+    [
+      99,
+      99,
+      "Heavy thunderstorm with hail"
+    ]
+  ],
+  "fixtures": [
+    {
+      "code": 0,
+      "isDay": true,
+      "cloudPercent": 3,
+      "expectedOkta": 0,
+      "expectedClass": "clear-day"
+    },
+    {
+      "code": 3,
+      "isDay": false,
+      "cloudPercent": 9,
+      "expectedOkta": 1,
+      "expectedClass": "few-clouds-night"
+    },
+    {
+      "code": 20,
+      "isDay": true,
+      "cloudPercent": 49,
+      "expectedOkta": 4,
+      "expectedClass": "partly-cloudy"
+    },
+    {
+      "code": 29,
+      "isDay": false,
+      "cloudPercent": 76,
+      "expectedOkta": 8,
+      "expectedClass": "overcast"
+    },
+    {
+      "code": 0,
+      "isDay": true,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "clear-day"
+    },
+    {
+      "code": 5,
+      "isDay": true,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-day-haze",
+      "expectedDescription": "Haze"
+    },
+    {
+      "code": 5,
+      "isDay": false,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-day-haze",
+      "expectedDescription": "Haze"
+    },
+    {
+      "code": 85,
+      "isDay": true,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-snow-wind",
+      "expectedDescription": "Snow showers"
+    },
+    {
+      "code": 85,
+      "isDay": false,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-snow-wind",
+      "expectedDescription": "Snow showers"
+    },
+    {
+      "code": 86,
+      "isDay": true,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-snow-wind",
+      "expectedDescription": "Snow showers"
+    },
+    {
+      "code": 86,
+      "isDay": false,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-snow-wind",
+      "expectedDescription": "Snow showers"
+    },
+    {
+      "code": 89,
+      "isDay": true,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-hail",
+      "expectedDescription": "Ice pellets or hail showers"
+    },
+    {
+      "code": 89,
+      "isDay": false,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-hail",
+      "expectedDescription": "Ice pellets or hail showers"
+    },
+    {
+      "code": 90,
+      "isDay": true,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-hail",
+      "expectedDescription": "Ice pellets or hail showers"
+    },
+    {
+      "code": 90,
+      "isDay": false,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-hail",
+      "expectedDescription": "Ice pellets or hail showers"
+    },
+    {
+      "code": 91,
+      "isDay": true,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-rain",
+      "expectedDescription": "Rain; thunderstorm during preceding hour"
+    },
+    {
+      "code": 91,
+      "isDay": false,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-rain",
+      "expectedDescription": "Rain; thunderstorm during preceding hour"
+    },
+    {
+      "code": 93,
+      "isDay": true,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-rain-mix",
+      "expectedDescription": "Snow/rain mix or hail; thunderstorm during preceding hour"
+    },
+    {
+      "code": 93,
+      "isDay": false,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-rain-mix",
+      "expectedDescription": "Snow/rain mix or hail; thunderstorm during preceding hour"
+    },
+    {
+      "code": 95,
+      "isDay": true,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-thunderstorm",
+      "expectedDescription": "Active thunderstorm without hail"
+    },
+    {
+      "code": 95,
+      "isDay": false,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-thunderstorm",
+      "expectedDescription": "Active thunderstorm without hail"
+    },
+    {
+      "code": 96,
+      "isDay": true,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-hail",
+      "expectedDescription": "Active thunderstorm with hail"
+    },
+    {
+      "code": 96,
+      "isDay": false,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-hail",
+      "expectedDescription": "Active thunderstorm with hail"
+    },
+    {
+      "code": 97,
+      "isDay": true,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-thunderstorm",
+      "expectedDescription": "Heavy thunderstorm without hail"
+    },
+    {
+      "code": 97,
+      "isDay": false,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-thunderstorm",
+      "expectedDescription": "Heavy thunderstorm without hail"
+    },
+    {
+      "code": 98,
+      "isDay": true,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-thunderstorm",
+      "expectedDescription": "Active thunderstorm with dust/sandstorm"
+    },
+    {
+      "code": 98,
+      "isDay": false,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-thunderstorm",
+      "expectedDescription": "Active thunderstorm with dust/sandstorm"
+    },
+    {
+      "code": 99,
+      "isDay": true,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-hail",
+      "expectedDescription": "Heavy thunderstorm with hail"
+    },
+    {
+      "code": 99,
+      "isDay": false,
+      "cloudPercent": null,
+      "expectedOkta": null,
+      "expectedClass": "wi-hail",
+      "expectedDescription": "Heavy thunderstorm with hail"
+    }
+  ]
+}

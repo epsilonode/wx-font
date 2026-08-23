@@ -1,0 +1,62 @@
+{
+  "version": "0.1.0",
+  "tag": "v0.1.0",
+  "glyphCount": 28,
+  "assets": [
+    {
+      "path": "wmo.js",
+      "bytes": 9894,
+      "sha256": "db69f71dce498750dda16ecb8baa5ca9f3852489ecb458700a113cc29b69aeb9"
+    },
+    {
+      "path": "wx-icons.css",
+      "bytes": 1347,
+      "sha256": "aef536e445c4f3c18c9eee4bae68ec70771a88db01eb5fa7457dffb5abfe72d2"
+    },
+    {
+      "path": "wx-icons.compat.css",
+      "bytes": 1173,
+      "sha256": "784ca5292b8e3fc29d098af993bd36f223ac743c19c64d8270e00c83e4604f42"
+    },
+    {
+      "path": "wx-icons.colors.css",
+      "bytes": 1397,
+      "sha256": "b4ece63e55acf85792f322424de5f2d8803b13a345ae551351a99e71d116df07"
+    },
+    {
+      "path": "wx-wmo.css",
+      "bytes": 14874,
+      "sha256": "93f1509b2599bf910cc09586788b3ee37e9d12bbd1ce6d8a9eb6a7d832292873"
+    },
+    {
+      "path": "wx-wmo.descriptions.css",
+      "bytes": 7506,
+      "sha256": "37fde8d0d48a7e63f4c7cc005b75aa5887b68520620c8d3b11ca54b128c01c4e"
+    },
+    {
+      "path": "fonts/wx-font.woff2",
+      "bytes": 4052,
+      "sha256": "f7f5633326be23c4ea0f42c81c2757107e7759f9ac4d403652e217b691c3b924"
+    },
+    {
+      "path": "fonts/wx-font.ttf",
+      "bytes": 10312,
+      "sha256": "a1e359f5c6db9a5cad15ce276807524f79f136ea0683ebb44e05382f3f308065"
+    },
+    {
+      "path": "codepoints.json",
+      "bytes": 612,
+      "sha256": "58f7f7b6c14b01cee31e728a2e51d0a690789b8609424e81716a8dd55fafa248"
+    },
+    {
+      "path": "wmo-contract.json",
+      "bytes": 12195,
+      "sha256": "dedf21b7bcc9a358fdab9144ff1ea749cd6b8bbd33ee897df7f1e3532eedee8b"
+    },
+    {
+      "path": "svg/weather/wi-hail.svg",
+      "bytes": 2044,
+      "sha256": "7e7a7185711f72e853f2d81f79270bb9a7b80909e301236247a3f86a1e140fb7"
+    }
+  ]
+}

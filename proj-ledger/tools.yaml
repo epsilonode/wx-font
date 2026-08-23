@@ -1,0 +1,37 @@
+version: 3
+permissions:
+  worker: READ-ONLY. Workers must not edit this file or commands.xml; record command discoveries in the assigned ticket's commands_run block.
+  orchestrator: READ/WRITE. The orchestrator harvests returned tickets and maintains this router plus commands.xml.
+purpose: Single tooling router. Read this, then follow exactly the pointers your task needs -
+  do not consume everything below.
+
+hot_path:
+  - Read ALL manifests below — they are light.
+  - Identify the canonical command/task name for your task.
+  - Grep commands.xml by that name.
+  - If a known-good invocation exists, use it verbatim.
+  - If not, derive from the manifest. Do not ad-hoc construct.
+
+manifests:
+  bun: ../package.json
+  mise: ../mise.toml
+
+commands_xml:
+  path: commands.xml
+  read_as: grep only, by the command/task name from the manifest - never read the whole file.
+    It is flat, prepend-ordered (newest on top), no root element, orchestrator-maintained.
+  what_it_is: known-good full invocations other sessions already worked out for manifest
+    commands (exact flags/args/cwd). If a grep hit exists, use it verbatim instead of
+    reconstructing the invocation yourself.
+
+package_json_caveat: >
+  package.json cannot carry inline comments. If a script needs explanation, it points at
+  scripts/<name>.sh and the note lives in that file's header comment.
+
+maintenance:
+  graduation_rule: >
+    Orchestrator-only. When a commands.xml pattern keeps recurring across worker
+    <commands_run> reports, promote it into the relevant manifest (package.json scripts /
+    mise.toml tasks / Makefile target) with a one-line comment, then grep-and-delete its
+    line from commands.xml.
+  see: must-know/tickets-workflow.md#closeout

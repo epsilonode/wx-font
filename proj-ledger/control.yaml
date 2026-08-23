@@ -1,0 +1,50 @@
+enabled: true
+mode: normal
+router_version: 2
+
+hot_path:
+  t0: AGENTS.md points here only.
+  t1:
+    read:
+      - control.yaml
+    grep: 'grep -nE "^(## @tier|### @(work|proof|risk|gap|unknown|blocker|decision|finding) )" proj-ledger/roadmaps/*.md'
+    enter: Read the highest open ## @tier[3-9] section first; if none is open, proceed through
+      ## @tier3 normal active in document order.
+    avoid:
+      - reading whole roadmaps during orientation
+      - reading memory bodies before grepping hooks
+  t2:
+    read:
+      - selected roadmap section only
+      - memory hooks before memory bodies
+  t3:
+    read: triggered must-know pages, memory cards, tooling router, or tickets workflow only when
+      the task requires them.
+
+routes:
+  reference: ledger.yaml
+  must_know: must-know/index.md
+  tools: tools.yaml
+  format: format-guidance.md
+  memory_guidance: making-memories.md
+  tickets: tickets/README.md
+
+active:
+  - id: wx-font
+    path: roadmaps/wx-font.md
+
+tickets:
+  enabled: true
+  active_glob: tickets/active/*.xml
+  rule: Used only when directly prompted; temporary independent-worker XML handoff, not durable
+    roadmap routing. Orchestrator promotes accepted outcomes into roadmap headings/mentions,
+    memories, logs, and commands.xml/tooling maintenance, then moves returned XML into the relevant
+    roadmap's memory area or deletes it.
+
+notes:
+  - mode minimal = stop at T1 orientation unless the task needs more.
+  - enabled false or mode off = skip ledger workflows unless the user asks.
+  - Memories and logs hold durable evidence, decisions, caveats, and protocol changes, not
+    routine progress.
+  - Tickets are temporary independent-worker handoff; do not encode temporary ticket state in
+    roadmap grammar.

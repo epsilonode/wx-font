@@ -1,0 +1,5 @@
+node_modules/
+.tmp/
+.svelte-kit/
+*.tgz
+proj-ledger/tickets/active/

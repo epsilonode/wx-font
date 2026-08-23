@@ -1,0 +1,109 @@
+version: 2
+name: wx-font-proj-ledger
+purpose: Reference router for wx-font project memory. Hot-path routing lives in AGENTS.md and
+  control.yaml; read this file for ledger maintenance, route audits, or when the hot router is
+  insufficient, not for routine orientation.
+
+entrypoints:
+  control: control.yaml            # mode switch + active roadmap router (T1)
+  must_know: must-know/index.md
+  format_guidance: format-guidance.md
+  memory_guidance: making-memories.md
+  tickets: tickets/active/*.xml
+  tools: tools.yaml
+  commands: commands.xml
+
+directory_contract:
+  control: Mode switch and active roadmap router.
+  roadmaps: Compact active execution roadmaps using heading/mention markdown (## @tierN sections,
+    ### @noun @state items, scan-friendly @memory/@blocker/@evidence lines).
+  logs: Self-named append-only UTF-8 logfmt changelogs for durable evidence.
+  memories: Roadmap-owned memory areas containing frontmattered cards (id/kind/status/roadmap/refs/hook), sibling assets, and retained ownership-cycle artifacts; grep-first discovery.
+  must-know: Short rules to read before changing sensitive project areas.
+  tools.yaml: Orchestrator-side router (not a memory) to project manifests and commands.xml
+    maintenance; never lists commands itself.
+  commands.xml: Flat, prepend-ordered, orchestrator-maintained list of known-good commands.
+    Subagents grep this first. Not append-only - the one ledger file where deletion is normal.
+  tickets: Temporary flat XML handoff files for independent terminal agents; not active roadmap
+    routing and only used when directly prompted.
+
+routes:
+  # Tiered progressive disclosure. Budgets are intentional; exceeding them means routing has regressed.
+  t0_entry:
+    source: AGENTS.md minimal entry (auto-loaded, free)
+    objective: Project identity plus pointer to control.yaml and non-negotiable invariants.
+  t1_orient:
+    budget_tokens: 350
+    do:
+      - read control.yaml
+      - use control.yaml hot_path.t1.grep
+    objective: Mode plus tier sections and item headings in two calls. Sufficient to choose the
+      highest open tier or normal active flow without reading full roadmaps.
+  t2_engage:
+    budget_tokens: 600
+    do:
+      - use control.yaml hot_path.t1.enter against the selected active roadmap
+      - 'grep -rh "^hook:" memories --include="*.md"  # before opening any body'
+    objective: The relevant tier section plus hooks of linked memories. Never read whole roadmaps.
+  t3_deep:
+    do:
+      - read specific memory cards, must-know pages, and assets the task triggered
+    objective: Full rationale only at the moment it is needed.
+  tooling:
+    trigger: Before the first execution of project commands in a session, and whenever a command
+      or runtime appears missing.
+    read:
+      - tools.yaml
+    objective: Follow tools.yaml hot_path: read one relevant manifest, get the canonical command or
+      task name, then grep commands.xml by that name. Never conclude a runtime is missing without
+      reading this first. Tasks that execute nothing never pay this cost.
+  maintenance:
+    read:
+      - format-guidance.md
+      - making-memories.md
+      - must-know/ledger-maintenance.md
+    objective: Edit roadmaps, memories, or logs correctly (status vocabulary, frontmatter, grep
+      recipes).
+  tickets:
+    read:
+      - must-know/tickets-workflow.md
+      - 'tickets/active/*.xml as needed'
+    objective: Create, review, close, or maintain XML tickets for independent terminal agents when
+      directly prompted. Active tickets are handoff artifacts; retained returned tickets preserve
+      the full ownership cycle.
+
+scenarios:
+  orchestrator_normal:
+    path: AGENTS.md -> control.yaml -> roadmap heading grep -> selected tier section -> triggered context -> closeout
+  orchestrator_tooling:
+    path: control.yaml -> tools.yaml -> one manifest -> grep commands.xml by command name -> run -> evidence/closeout
+  orchestrator_ticket_closeout:
+    path: tickets-workflow.md -> returned XML -> orchestrator verification and closeout in ticket -> promote compact facts to roadmap/memory/log/commands.xml -> move XML into the relevant roadmap memory area or delete
+  ticket_worker:
+    path: assigned ticket XML -> explicit context_refs -> scoped work -> worker_result XML
+
+agent_rules:
+  - Read control.yaml first; it is the active-roadmap router.
+  - Read the tooling entrypoint before executing project commands; toolchains may be wrapper-managed
+    (mise) and absent from PATH. Never conclude a runtime is missing without following both
+    pointers in tools.yaml (manifest first, then commands.xml).
+  - Open only active roadmap files, entered via grep, unless the user asks for archived or future
+    material.
+  - Roadmap canonical state is heading/mention markdown. Keep state in `## @tierN` sections,
+    `### @noun @state` item headings, and explicit @mention lines; untagged prose is non-canonical.
+  - Keep roadmaps compact; move detailed rationale and evidence to memories.
+  - Memories are frontmattered cards (id, kind, status, roadmap, refs, hook); grep hooks or roadmap
+    fields to discover them, follow refs to their consumers.
+  - Append durable facts to logs; never rewrite old log entries to look current. Exception:
+    commands.xml (ledger root, not in logs/) is prepend-ordered and orchestrator-curated by
+    design — entries are added, reordered, and deleted as patterns graduate or go stale.
+  - End every bounded work session per the Close-Out Contract in must-know/ledger-maintenance.md —
+    findings, remainders, and proposed actions land in the ledger, not only in chat. If it is
+    not in the ledger, it did not happen. The transcript is discarded; the ledger is what the next
+    agent reads.
+  - Use tickets only when directly prompted; active tickets are handoff artifacts, not active roadmap
+    routing. If retained after closeout, tickets are durable ownership-cycle memory. Promote compact
+    accepted outcomes into roadmap headings, memories, and logs.
+  - Do not require validators for ledger formats. They are optimized for agent reading and fast
+    project motion, not machine ingestion.
+  - Never store secrets, API keys, cookies, tokens, or private credentials in ledger files.

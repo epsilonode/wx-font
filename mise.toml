@@ -1,0 +1,54 @@
+[env]
+BUN_BUILD = "baseline"
+
+[tools]
+bun = "1.3.14"
+node = "22"
+
+[tasks.compile-proof]
+description = "Compile and validate the one-glyph font proof"
+run = "bun run scripts/compile-proof.ts"
+
+[tasks.mapping-proof]
+description = "Validate WMO normalization and dynamic mapping fixtures"
+run = "bun run scripts/verify-wmo-contract.ts"
+
+[tasks.icon-audit]
+description = "Audit mapped glyph provenance and codepoints"
+run = "bun run scripts/audit-registry.ts"
+
+[tasks.icon-acquire]
+description = "Acquire the mapped Weather Icons SVG subset"
+run = "bun run scripts/acquire-weather-icons.ts"
+
+[tasks.icon-build]
+description = "Build the complete mapped icon-font distribution"
+run = "bun run scripts/build.ts"
+
+[tasks.dist-verify]
+description = "Verify generated WMO resolver and CSS"
+run = "bun run scripts/verify-dist.ts"
+
+[tasks.provenance-audit]
+description = "Verify pinned upstream and project-generated glyph provenance"
+run = "bun run scripts/audit-provenance.ts"
+
+[tasks.icon-preview]
+description = "Build and report the generated visual preview"
+run = "bun run scripts/preview.ts"
+
+[tasks.icon-watch]
+description = "Rebuild while registry, SVG, and template sources change"
+run = "bun --watch run scripts/build.ts"
+
+[tasks.icon-add]
+description = "Explain the reviewed glyph import workflow"
+run = "bun run scripts/add-icon.ts"
+
+[tasks.release-verify]
+description = "Verify the generated GitHub and esm.sh release bundle"
+run = "bun run scripts/verify-release.ts"
+
+[tasks.release-assets-verify]
+description = "Fetch and verify critical assets from a tagged esm.sh GitHub release"
+run = "bun run scripts/verify-release-assets.ts"

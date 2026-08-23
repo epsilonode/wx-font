@@ -1,0 +1,6 @@
+<!-- Orchestrator-maintained, prepend-ordered (newest on top). Not a full XML document by
+     design - just a flat, growable list of raw runnable commands so it stays trivial to
+     prepend and grep. Subagents: grep this file first for promoted patterns before any ad-hoc
+     tool discovery. Orchestrator: grep before adding (skip if already present); grep-and-delete
+     a line when its pattern graduates into package.json/mise.toml/Makefile or is deprecated.
+     deprecate="true" marks commands retained as history/diagnostics, not preferred workflow. -->

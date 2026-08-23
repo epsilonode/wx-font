@@ -1,0 +1,22 @@
+name: Verify release bundle
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2
+      - run: mise run compile-proof
+      - run: mise run mapping-proof
+      - run: mise run icon-audit
+      - run: mise run provenance-audit
+      - run: mise run icon-build
+      - run: mise run dist-verify
+      - run: mise run release-verify
+      - run: git diff --exit-code -- dist README.md NOTICE

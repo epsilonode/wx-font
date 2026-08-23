@@ -1,0 +1,1734 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WMO Weather Icon Mapping Reference</title>
+  
+  <!-- Inter & Outfit Fonts for Modern Styling -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Weather Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css">
+  
+  <style>
+    /* Styling System & Variables */
+    @font-face {
+      font-family: "WeatherIconsTTF";
+      src: url("https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/font/weathericons-regular-webfont.ttf") format("truetype");
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0b1329 0%, #1c2541 100%);
+      --bg-light: #f8fafc;
+      --card-bg: rgba(28, 37, 65, 0.6);
+      --card-bg-light: rgba(255, 255, 255, 0.85);
+      --text: #f8fafc;
+      --text-light: #0f172a;
+      --text-muted: #94a3b8;
+      --text-muted-light: #64748b;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-light: rgba(15, 23, 42, 0.08);
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --accent-rgb: 56, 189, 248;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      --shadow-light: 0 10px 30px rgba(15, 23, 42, 0.06);
+      --glass-glow: 0 0 20px rgba(56, 189, 248, 0.05);
+      --success: #10b981;
+    }
+
+    /* Light Theme Class overrides */
+    body.light-theme {
+      background: var(--bg-light);
+      color: var(--text-light);
+    }
+    body.light-theme .app-container {
+      background: none;
+    }
+    body.light-theme .header-card, 
+    body.light-theme .control-card, 
+    body.light-theme .table-card, 
+    body.light-theme .details-panel {
+      background: var(--card-bg-light);
+      border-color: var(--border-light);
+      color: var(--text-light);
+      box-shadow: var(--shadow-light);
+    }
+    body.light-theme th {
+      background: #f1f5f9;
+      color: var(--text-muted-light);
+    }
+    body.light-theme td {
+      border-color: #e2e8f0;
+    }
+    body.light-theme tr:hover {
+      background: rgba(15, 23, 42, 0.02);
+    }
+    body.light-theme .badge-wmo {
+      background: rgba(15, 23, 42, 0.05);
+      color: var(--text-light);
+    }
+    body.light-theme .badge-category {
+      background: rgba(14, 165, 233, 0.08);
+      color: var(--accent-hover);
+    }
+    body.light-theme .tag-interactive {
+      background: rgba(245, 158, 11, 0.08);
+      color: #b45309;
+    }
+    body.light-theme .code-snippet {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    body.light-theme .slider-value {
+      background: rgba(15, 23, 42, 0.05);
+      color: var(--text-light);
+    }
+    body.light-theme .search-input,
+    body.light-theme .control-btn {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: var(--text-light);
+    }
+    body.light-theme .search-input:focus {
+      border-color: var(--accent-hover);
+    }
+    body.light-theme .chip-btn {
+      background: #e2e8f0;
+      color: var(--text-muted-light);
+    }
+    body.light-theme .chip-btn.active {
+      background: var(--accent-hover);
+      color: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2.5rem 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Grid layout for Dashboard */
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 992px) {
+      .dashboard-layout {
+        grid-template-columns: 1.7fr 1fr;
+        align-items: start;
+      }
+    }
+
+    /* Header Cards Styling */
+    .header-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), #a855f7);
+    }
+
+    .title-group h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    
+    body.light-theme .title-group h1 {
+      background: linear-gradient(135deg, #0f172a 0%, var(--accent-hover) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .title-group p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    /* Cards Layout */
+    .glass-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+    }
+
+    /* Interactive Parameter Controls */
+    .control-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .control-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .range-slider {
+      flex-grow: 1;
+      height: 6px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      outline: none;
+    }
+    
+    body.light-theme .range-slider {
+      background: rgba(15, 23, 42, 0.1);
+    }
+
+    .range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+      transition: transform 0.1s;
+    }
+
+    .range-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .slider-value {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      min-width: 45px;
+      text-align: center;
+    }
+
+    /* Theme and Toggle switches */
+    .switch-group {
+      display: flex;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      padding: 0.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    body.light-theme .switch-group {
+      background: rgba(15, 23, 42, 0.05);
+      border-color: rgba(15, 23, 42, 0.05);
+    }
+
+    .switch-btn {
+      flex: 1;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .switch-btn.active {
+      background: var(--accent);
+      color: #0b1329;
+      box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
+    }
+    
+    body.light-theme .switch-btn.active {
+      color: #ffffff;
+      background: var(--accent-hover);
+    }
+
+    .control-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+      padding: 0.6rem;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+
+    .control-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Filter & Search Section */
+    .filter-search-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .filter-search-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .search-box {
+      position: relative;
+      flex-grow: 1;
+      max-width: 400px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      color: var(--text);
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.15);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .chips-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .chip-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 0.4rem 0.85rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .chip-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+
+    .chip-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+
+    /* Table Styling */
+    .table-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      max-height: 650px;
+      overflow-y: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: #111a36;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      padding: 1.1rem 1.25rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 1.1rem 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      vertical-align: middle;
+    }
+
+    tr {
+      cursor: pointer;
+    }
+
+    tr:hover {
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    tr.active {
+      background: rgba(56, 189, 248, 0.04);
+    }
+
+    /* Badges & Tags */
+    .badge-wmo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font-weight: 700;
+      font-family: monospace;
+      font-size: 0.95rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .badge-category {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 0.25rem 0.6rem;
+      border-radius: 99px;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+    }
+
+    .tag-interactive {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      margin-top: 0.35rem;
+    }
+
+    /* Dynamic glyph & SVG column styles */
+    .glyph-display {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .wi-table-icon {
+      font-size: 1.7rem;
+      color: var(--text);
+      display: inline-block;
+      text-align: center;
+      height: 32px;
+      line-height: 32px;
+    }
+
+    .icon-class-label {
+      font-size: 0.7rem;
+      font-family: monospace;
+      color: var(--text-muted);
+    }
+
+    .svg-container {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.1);
+      padding: 4px;
+    }
+
+    .weather-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* Right Side Details Panel */
+    .details-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      position: sticky;
+      top: 1.5rem;
+    }
+
+    .details-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-muted);
+      border: 2px dashed rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      height: 100%;
+      min-height: 400px;
+    }
+    
+    body.light-theme .details-placeholder {
+      border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    .details-placeholder i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .details-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .details-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.25rem;
+    }
+
+    .details-title-group h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .preview-showcase {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border);
+    }
+
+    .preview-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .preview-box span {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .preview-box .large-svg {
+      width: 80px;
+      height: 80px;
+    }
+
+    .preview-box .large-glyph {
+      font-size: 3.5rem;
+      height: 80px;
+      line-height: 80px;
+    }
+
+    .code-export-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .code-block-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .copy-btn {
+      background: transparent;
+      border: none;
+      color: var(--accent);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .copy-btn:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    .code-snippet {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.85rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      word-break: break-all;
+      border: 1px solid var(--border);
+      max-height: 160px;
+      overflow-y: auto;
+    }
+
+    /* Micro-Animations for premium feel */
+    @keyframes rotate-sun {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes moon-drift {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-2px) scale(1.02); }
+    }
+    @keyframes rain-fall {
+      0% { transform: translateY(-3px) translateX(1px); opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { transform: translateY(4px) translateX(-1px); opacity: 0.2; }
+    }
+    @keyframes lightning-spark {
+      0%, 90%, 94%, 98%, 100% { opacity: 0.2; }
+      92%, 96% { opacity: 1; filter: drop-shadow(0 0 8px #eab308); }
+    }
+    @keyframes snow-drift {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(3px) translateX(2px); }
+    }
+    @keyframes wind-sweep-anim {
+      0% { transform: translateX(-5px); opacity: 0.3; }
+      50% { opacity: 0.9; }
+      100% { transform: translateX(5px); opacity: 0.3; }
+    }
+
+    /* Applying Animations */
+    .weather-svg:hover .sun-rays,
+    .tr-hover-animated:hover .sun-rays {
+      animation: rotate-sun 12s linear infinite;
+      transform-origin: 32px 32px;
+    }
+    .weather-svg:hover .star-sparkle,
+    .tr-hover-animated:hover .star-sparkle {
+      animation: moon-drift 2s ease-in-out infinite;
+    }
+    .weather-svg:hover .rain-drops line,
+    .tr-hover-animated:hover .rain-drops line {
+      animation: rain-fall 0.8s linear infinite;
+    }
+    .weather-svg:hover .lightning-flash,
+    .tr-hover-animated:hover .lightning-flash {
+      animation: lightning-spark 4s ease-in-out infinite;
+    }
+    .weather-svg:hover .snow-flakes circle,
+    .tr-hover-animated:hover .snow-flakes circle {
+      animation: snow-drift 2s ease-in-out infinite;
+    }
+    .weather-svg:hover .wind-sweep,
+    .tr-hover-animated:hover .wind-sweep {
+      animation: wind-sweep-anim 3s ease-in-out infinite;
+    }
+
+    /* SVG Adapter styles */
+    .svg-preview-cell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .inline-svg-icon {
+      width: 1.8rem;
+      height: 1.8rem;
+      fill: currentColor;
+      stroke: none;
+      display: inline-block;
+      vertical-align: middle;
+      transition: transform 0.2s ease, color 0.3s ease;
+      color: var(--accent);
+    }
+
+    /* Night mode Haze/Fog override if needed, inherits color from row context */
+    .light-theme .inline-svg-icon {
+      color: var(--accent);
+    }
+
+    .inline-svg-icon:hover {
+      transform: scale(1.15);
+    }
+
+    .preview-box .large-svg .inline-svg-icon {
+      width: 100%;
+      height: 100%;
+    }
+
+    .inline-svg-icon path {
+      fill: currentColor;
+    }
+
+
+
+    .svg-loading-spinner {
+      display: inline-block;
+      width: 1.1rem;
+      height: 1.1rem;
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      border-top-color: var(--accent);
+      animation: spin-loader 0.8s linear infinite;
+    }
+
+    @keyframes spin-loader {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Footer styling */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Reusable SVG symbols definition for weather icons -->
+  <svg style="display: none;">
+    <!-- Clear Day / Sun -->
+    <symbol id="svg-clear-day" viewBox="0 0 64 64">
+      <defs>
+        <linearGradient id="sun-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#fff5c0" />
+          <stop offset="50%" stop-color="#ffb800" />
+          <stop offset="100%" stop-color="#ff7a00" />
+        </linearGradient>
+      </defs>
+      <circle cx="32" cy="32" r="14" fill="url(#sun-grad)" />
+      <g stroke="url(#sun-grad)" stroke-width="3.5" stroke-linecap="round" class="sun-rays">
+        <line x1="32" y1="8" x2="32" y2="14" />
+        <line x1="32" y1="50" x2="32" y2="56" />
+        <line x1="8" y1="32" x2="14" y2="32" />
+        <line x1="50" y1="32" x2="56" y2="32" />
+        <line x1="15.04" y1="15.04" x2="19.28" y2="19.28" />
+        <line x1="44.72" y1="44.72" x2="48.96" y2="48.96" />
+        <line x1="15.04" y1="48.96" x2="19.28" y2="44.72" />
+        <line x1="44.72" y1="19.28" x2="48.96" y2="15.04" />
+      </g>
+    </symbol>
+
+    <!-- Clear Night / Moon -->
+    <symbol id="svg-clear-night" viewBox="0 0 64 64">
+      <defs>
+        <linearGradient id="moon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#e0f2fe" />
+          <stop offset="100%" stop-color="#38bdf8" />
+        </linearGradient>
+        <linearGradient id="star-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffffff" />
+          <stop offset="100%" stop-color="#fef08a" />
+        </linearGradient>
+      </defs>
+      <path d="M40.5,37.5 A14,14 0 1,1 32.5,17.5 A16,16 0 0,0 40.5,37.5" fill="url(#moon-grad)" />
+      <path d="M16,22 L17.5,23.5 L19,22 L17.5,20.5 Z" fill="url(#star-grad)" class="star-sparkle" />
+      <path d="M48,16 L49.5,17.5 L51,16 L49.5,14.5 Z" fill="url(#star-grad)" class="star-sparkle" style="animation-delay: 0.6s;" />
+      <path d="M22,46 L23,47 L24,46 L23,45 Z" fill="url(#star-grad)" class="star-sparkle" style="animation-delay: 1.2s;" />
+    </symbol>
+
+    <!-- Cloudy / Overcast -->
+    <symbol id="svg-cloudy" viewBox="0 0 64 64">
+      <defs>
+        <linearGradient id="cloud-grad-back" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#94a3b8" />
+          <stop offset="100%" stop-color="#475569" />
+        </linearGradient>
+        <linearGradient id="cloud-grad-front" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f1f5f9" />
+          <stop offset="100%" stop-color="#cbd5e1" />
+        </linearGradient>
+      </defs>
+      <!-- Back Cloud -->
+      <path d="M38,32 A8,8 0 0,0 25.2,25.6 A9.6,9.6 0 0,0 14,33.6 A6.4,6.4 0 0,0 17.2,44.8 L38,44.8 A8,8 0 0,0 38,32" fill="url(#cloud-grad-back)" transform="translate(6, -6) scale(0.9)" opacity="0.8" />
+      <!-- Front Cloud -->
+      <path d="M44,36 A10,10 0 0,0 28,28 A12,12 0 0,0 14,38 A8,8 0 0,0 18,52 L44,52 A10,10 0 0,0 44,36" fill="url(#cloud-grad-front)" />
+    </symbol>
+
+    <!-- Single Cloud (used for Partly Cloudy and Overcast) -->
+    <symbol id="svg-cloud-single" viewBox="0 0 64 64">
+      <defs>
+        <linearGradient id="cloud-grad-single" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f1f5f9" />
+          <stop offset="100%" stop-color="#cbd5e1" />
+        </linearGradient>
+      </defs>
+      <path d="M44,36 A10,10 0 0,0 28,28 A12,12 0 0,0 14,38 A8,8 0 0,0 18,52 L44,52 A10,10 0 0,0 44,36" fill="url(#cloud-grad-single)" class="single-cloud-path" />
+    </symbol>
+
+    <!-- Overcast (single cloud with solid fill) -->
+    <symbol id="svg-overcast" viewBox="0 0 64 64">
+      <defs>
+        <linearGradient id="cloud-grad-overcast" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f1f5f9" />
+          <stop offset="100%" stop-color="#cbd5e1" />
+        </linearGradient>
+      </defs>
+      <path d="M44,36 A10,10 0 0,0 28,28 A12,12 0 0,0 14,38 A8,8 0 0,0 18,52 L44,52 A10,10 0 0,0 44,36" fill="url(#cloud-grad-overcast)" />
+    </symbol>
+
+    <!-- Partly Cloudy Day -->
+    <symbol id="svg-partly-cloudy-day" viewBox="0 0 64 64">
+      <circle cx="24" cy="24" r="10" fill="url(#sun-grad)" />
+      <use href="#svg-cloudy" />
+    </symbol>
+
+    <!-- Partly Cloudy Night -->
+    <symbol id="svg-partly-cloudy-night" viewBox="0 0 64 64">
+      <path d="M28,26 A8,8 0 1,1 23,15 A9.5,9.5 0 0,0 28,26" fill="url(#moon-grad)" />
+      <use href="#svg-cloudy" />
+    </symbol>
+
+    <!-- Fog / Haze / Mist (Day) -->
+    <symbol id="svg-fog" viewBox="0 0 64 64">
+      <defs>
+        <linearGradient id="fog-line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(148, 163, 184, 0.1)" />
+          <stop offset="50%" stop-color="rgba(148, 163, 184, 0.85)" />
+          <stop offset="100%" stop-color="rgba(148, 163, 184, 0.1)" />
+        </linearGradient>
+      </defs>
+      <!-- Sun hidden back -->
+      <circle cx="32" cy="24" r="10" fill="url(#sun-grad)" opacity="0.3" />
+      <!-- Fog Lines -->
+      <g stroke="url(#fog-line-grad)" stroke-width="3" stroke-linecap="round" class="fog-lines">
+        <line x1="14" y1="34" x2="50" y2="34" />
+        <line x1="10" y1="40" x2="54" y2="40" />
+        <line x1="16" y1="46" x2="48" y2="46" />
+        <line x1="22" y1="52" x2="42" y2="52" />
+      </g>
+    </symbol>
+
+    <!-- Fog / Haze / Mist (Night) -->
+    <symbol id="svg-fog-night" viewBox="0 0 64 64">
+      <defs>
+        <linearGradient id="fog-line-grad-night" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(148, 163, 184, 0.1)" />
+          <stop offset="50%" stop-color="rgba(148, 163, 184, 0.85)" />
+          <stop offset="100%" stop-color="rgba(148, 163, 184, 0.1)" />
+        </linearGradient>
+      </defs>
+      <!-- Moon hidden back -->
+      <path d="M38,28 A8,8 0 1,1 33,17 A9.5,9.5 0 0,0 38,28" fill="url(#moon-grad)" opacity="0.4" transform="translate(-4, -2)" />
+      <!-- Fog Lines -->
+      <g stroke="url(#fog-line-grad-night)" stroke-width="3" stroke-linecap="round" class="fog-lines">
+        <line x1="14" y1="34" x2="50" y2="34" />
+        <line x1="10" y1="40" x2="54" y2="40" />
+        <line x1="16" y1="46" x2="48" y2="46" />
+        <line x1="22" y1="52" x2="42" y2="52" />
+      </g>
+    </symbol>
+
+    <!-- Rain / Showers -->
+    <symbol id="svg-rain" viewBox="0 0 64 64">
+      <defs>
+        <linearGradient id="rain-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#38bdf8" />
+          <stop offset="100%" stop-color="#0284c7" />
+        </linearGradient>
+      </defs>
+      <use href="#svg-cloudy" />
+      <!-- Rain drops -->
+      <g stroke="url(#rain-grad)" stroke-width="2.5" stroke-linecap="round" class="rain-drops">
+        <line x1="22" y1="54" x2="19" y2="60" />
+        <line x1="30" y1="54" x2="27" y2="60" />
+        <line x1="38" y1="54" x2="35" y2="60" />
+      </g>
+    </symbol>
+
+    <!-- Drizzle -->
+    <symbol id="svg-drizzle" viewBox="0 0 64 64">
+      <use href="#svg-cloudy" />
+      <g stroke="url(#rain-grad)" stroke-width="1.8" stroke-linecap="round" class="rain-drops" opacity="0.7">
+        <line x1="22" y1="54" x2="20" y2="58" />
+        <line x1="28" y1="54" x2="26" y2="58" />
+        <line x1="34" y1="54" x2="32" y2="58" />
+        <line x1="40" y1="54" x2="38" y2="58" />
+      </g>
+    </symbol>
+
+    <!-- Freezing Rain / Mix -->
+    <symbol id="svg-freezing-rain" viewBox="0 0 64 64">
+      <use href="#svg-cloudy" />
+      <g stroke="url(#rain-grad)" stroke-width="2" stroke-linecap="round" class="rain-drops">
+        <line x1="20" y1="54" x2="18" y2="59" />
+        <line x1="38" y1="54" x2="36" y2="59" />
+      </g>
+      <!-- Small diamonds/flakes -->
+      <g fill="#93c5fd" class="snow-flakes">
+        <path d="M28,54 L30,56 L28,58 L26,56 Z" />
+        <path d="M32,58 L34,60 L32,62 L30,60 Z" />
+      </g>
+    </symbol>
+
+    <!-- Snow -->
+    <symbol id="svg-snow" viewBox="0 0 64 64">
+      <use href="#svg-cloudy" />
+      <!-- Snow flakes -->
+      <g fill="#93c5fd" class="snow-flakes">
+        <circle cx="20" cy="56" r="2.5" />
+        <circle cx="28" cy="59" r="2" />
+        <circle cx="36" cy="55" r="2.5" />
+        <circle cx="24" cy="62" r="2" />
+        <circle cx="32" cy="62" r="2.5" />
+      </g>
+    </symbol>
+
+    <!-- Sleet -->
+    <symbol id="svg-sleet" viewBox="0 0 64 64">
+      <use href="#svg-cloudy" />
+      <g stroke="url(#rain-grad)" stroke-width="2" stroke-linecap="round" class="rain-drops">
+        <line x1="22" y1="54" x2="20" y2="59" />
+        <line x1="36" y1="54" x2="34" y2="59" />
+      </g>
+      <g fill="#93c5fd" class="snow-flakes">
+        <circle cx="28" cy="56" r="2.5" />
+        <circle cx="25" cy="61" r="2" />
+        <circle cx="31" cy="61" r="2" />
+      </g>
+    </symbol>
+
+    <!-- Thunderstorm / Lightning -->
+    <symbol id="svg-lightning" viewBox="0 0 64 64">
+      <defs>
+        <linearGradient id="bolt-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#fef08a" />
+          <stop offset="100%" stop-color="#eab308" />
+        </linearGradient>
+      </defs>
+      <!-- Dark cloud base -->
+      <use href="#svg-cloudy" />
+      <!-- Lightning bolt -->
+      <polygon points="30,46 22,55 28,55 24,62 34,51 28,51" fill="url(#bolt-grad)" class="lightning-flash" />
+    </symbol>
+
+    <!-- Wind / Sandstorm -->
+    <symbol id="svg-wind" viewBox="0 0 64 64">
+      <defs>
+        <linearGradient id="wind-line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(148, 163, 184, 0.1)" />
+          <stop offset="50%" stop-color="rgba(226, 232, 240, 0.85)" />
+          <stop offset="100%" stop-color="rgba(148, 163, 184, 0.1)" />
+        </linearGradient>
+      </defs>
+      <g fill="none" stroke="url(#wind-line-grad)" stroke-width="3" stroke-linecap="round" class="wind-sweep">
+        <path d="M12,24 C20,24 24,18 24,18 C24,18 26,14 30,14 C34,14 36,18 34,20 C34,22 32,24 30,24 L12,24" />
+        <path d="M8,36 C18,36 22,30 22,30 C22,30 24,26 28,26 C32,26 34,30 34,32 C34,34 32,36 30,36 L8,36" style="animation-delay: 0.3s;" />
+        <path d="M16,48 L48,48" style="animation-delay: 0.6s;" />
+      </g>
+    </symbol>
+  </svg>
+
+  <div class="app-container">
+    <!-- Header panel -->
+    <div class="header-card">
+      <div class="title-group">
+        <h1>WMO Weather Icon Mapping</h1>
+        <p>Complete lookup dictionary translating WMO weather codes (00 - 99) to descriptors, font glyphs, and custom inline SVGs.</p>
+      </div>
+      <div class="header-actions">
+        <button id="themeToggle" class="control-btn" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+          <i class="wi wi-day-sunny" id="themeIcon"></i>
+        </button>
+        <button id="exportJson" class="control-btn" title="Export Mapping as JSON" aria-label="Export Mapping as JSON">
+          <i class="wi wi-cloud-down"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Controls panel for dynamic fields -->
+    <div class="glass-card control-card">
+      <div class="controls-grid">
+        <div class="control-group">
+          <span class="control-label">
+            Dynamic State
+            <span class="tag-interactive">Interactive</span>
+          </span>
+          <div class="switch-group">
+            <button id="stateDay" class="switch-btn active">☀️ Day Mode</button>
+            <button id="stateNight" class="switch-btn">🌙 Night Mode</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <span class="control-label">
+            Cloud Cover (%)
+            <span id="cloudLabel" class="slider-value">45%</span>
+          </span>
+          <div class="slider-container">
+            <input type="range" id="cloudCoverSlider" class="range-slider" min="0" max="100" value="45">
+          </div>
+        </div>
+      </div>
+      <div class="hint" style="color: var(--text-muted); font-size: 0.8rem;">
+        💡 Adjusting the state & cloud cover will dynamically update the condition and icon for WMO codes **00-03** and **20-29** inside the table below.
+      </div>
+    </div>
+
+    <!-- Dashboard layout with Table and Details -->
+    <div class="dashboard-layout">
+      <!-- Left: Table card -->
+      <div class="glass-card table-card">
+        <div style="padding: 1.5rem 1.5rem 1rem;" class="filter-search-row">
+          <div class="search-box">
+            <i class="wi wi-strong-wind search-icon"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search by WMO code, name, or glyph...">
+          </div>
+          <div class="chips-container" id="categoryChips">
+            <button class="chip-btn active" data-filter="all">All Codes</button>
+            <button class="chip-btn" data-filter="clear">Clear/Cloudy</button>
+            <button class="chip-btn" data-filter="rain">Rain/Drizzle</button>
+            <button class="chip-btn" data-filter="snow">Snow/Sleet</button>
+            <button class="chip-btn" data-filter="fog">Fog/Haze</button>
+            <button class="chip-btn" data-filter="storm">Thunderstorm</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table id="mappingTable">
+            <thead>
+              <tr>
+                <th style="width: 100px;">WMO Code</th>
+                <th>Description (fetch.html)</th>
+                <th style="width: 180px; text-align: center;">Font Glyph</th>
+                <th style="width: 180px; text-align: center;">SVG Icon</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Rendered via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Right: Details panel -->
+      <div class="glass-card details-panel" id="detailsPanel">
+        <div class="details-placeholder" id="detailsPlaceholder">
+          <i class="wi wi-stars"></i>
+          <p>Select any WMO code row from the table to view enlarged assets, details, and raw code snippets for development.</p>
+        </div>
+        <div class="details-content" id="detailsContent" style="display: none;">
+          <!-- Populated via Javascript -->
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>Built for the Forecast Single File Utility Suite.</span>
+      <span>Reference dataset matching <a href="./index.html">index.html</a> configuration.</span>
+    </div>
+  </div>
+
+  <script>
+    class SvgAdapter {
+      constructor() {
+        this.cache = new Map();
+        this.pending = new Map();
+        this.subscribers = new Map();
+      }
+
+      subscribe(iconName, elementId, callback) {
+        if (!this.subscribers.has(iconName)) {
+          this.subscribers.set(iconName, []);
+        }
+        this.subscribers.get(iconName).push({ elementId, callback });
+      }
+
+      notify(iconName, svgText) {
+        const subs = this.subscribers.get(iconName) || [];
+        subs.forEach(({ elementId, callback }) => {
+          const el = document.getElementById(elementId);
+          if (el && el.getAttribute('data-icon') === iconName) {
+            callback(el, svgText);
+          }
+        });
+        this.subscribers.delete(iconName);
+      }
+
+      getSvgSync(iconName, elementId, callback) {
+        if (!iconName) return '';
+        const cached = this.cache.get(iconName);
+        if (cached) {
+          return cached;
+        }
+
+        this.subscribe(iconName, elementId, callback);
+        this.fetchSvg(iconName);
+
+        return `<span class="svg-loading-spinner"></span>`;
+      }
+
+      async fetchSvg(iconName) {
+        if (this.pending.has(iconName)) return;
+
+        const parts = iconName.split(' ');
+        const baseName = parts[0];
+        const extraClasses = parts.slice(1);
+
+        const url = baseName === 'wi-overcast'
+          ? './overcast.svg'
+          : `https://cdn.jsdelivr.net/gh/erikflowers/weather-icons@master/svg/${baseName}.svg`;
+        const fetchPromise = fetch(url)
+          .then(response => {
+            if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+            return response.text();
+          })
+          .then(svgText => {
+            let cleanSvg = svgText
+              .replace(/<\?xml.*?\?>/g, '')
+              .replace(/<!--.*?-->/g, '')
+              .trim();
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(cleanSvg, 'image/svg+xml');
+            const svgEl = doc.querySelector('svg');
+            
+            if (svgEl) {
+              svgEl.classList.add('inline-svg-icon');
+              // Add base icon name as class to the SVG element for target styling
+              svgEl.classList.add(baseName);
+              extraClasses.forEach(cls => svgEl.classList.add(cls));
+              svgEl.removeAttribute('width');
+              svgEl.removeAttribute('height');
+              
+              const children = svgEl.querySelectorAll('*');
+              children.forEach(child => {
+                if (child.hasAttribute('fill') && child.getAttribute('fill') !== 'none') {
+                  child.setAttribute('data-orig-fill', child.getAttribute('fill'));
+                  child.removeAttribute('fill');
+                }
+                if (child.hasAttribute('stroke') && child.getAttribute('stroke') !== 'none') {
+                  child.setAttribute('data-orig-stroke', child.getAttribute('stroke'));
+                  child.removeAttribute('stroke');
+                }
+                if (child.hasAttribute('style')) {
+                  const style = child.getAttribute('style');
+                  child.setAttribute('data-orig-style', style);
+                  let cleanStyle = style
+                    .replace(/fill\s*:\s*[^;]+;?/g, '')
+                    .replace(/stroke\s*:\s*[^;]+;?/g, '');
+                  if (cleanStyle.trim()) {
+                    child.setAttribute('style', cleanStyle);
+                  } else {
+                    child.removeAttribute('style');
+                  }
+                }
+              });
+              
+              cleanSvg = new XMLSerializer().serializeToString(svgEl);
+            }
+            
+            this.cache.set(iconName, cleanSvg);
+            this.pending.delete(iconName);
+            this.notify(iconName, cleanSvg);
+          })
+          .catch(err => {
+            console.error(`Failed to load SVG for ${iconName}:`, err);
+            const fallback = `<svg viewBox="0 0 30 30" class="inline-svg-icon error"><path d="M15,2C7.8,2,2,7.8,2,15s5.8,13,13,13s13-5.8,13-13S22.2,2,15,2z M16,21h-2v-2h2V21z M16,17h-2V9h2V17z"/></svg>`;
+            this.cache.set(iconName, fallback);
+            this.pending.delete(iconName);
+            this.notify(iconName, fallback);
+          });
+
+        this.pending.set(iconName, fetchPromise);
+      }
+    }
+
+    const svgAdapter = new SvgAdapter();
+
+    // Mapping algorithm taken from index.html
+    function getWeatherMapping(ww, isDay, cloudCover) {
+      if (!Number.isFinite(ww) || ww < 0) return { icon: "", descriptor: "" };
+      let descriptor = "Cloudy Conditions";
+      let icon = "wi-cloudy";
+      
+      if (ww >= 0 && ww <= 3) { 
+        descriptor = "Fair/Sunny"; 
+        icon = isDay ? "wi-day-sunny" : "wi-night-clear"; 
+      }
+      else if (ww === 4) { descriptor = "Smoke"; icon = "wi-smoke"; }
+      else if (ww === 5) { descriptor = "Haze"; icon = isDay ? "wi-day-haze" : "wi-night-fog"; }
+      else if (ww >= 6 && ww <= 8) { descriptor = "Blowing Dust / Sand"; icon = "wi-dust"; }
+      else if (ww === 9) { descriptor = "Dust / Sandstorm"; icon = "wi-sandstorm"; }
+      else if (ww >= 10 && ww <= 12) { descriptor = "Mist/Shallow Fog"; icon = "wi-fog"; }
+      else if (ww === 13) { descriptor = "Lightning (No Thunder)"; icon = "wi-lightning"; }
+      else if (ww >= 14 && ww <= 16) { descriptor = "Distant Precipitation"; icon = "wi-showers"; }
+      else if (ww === 17) { descriptor = "Thunderstorm (No Precipitation)"; icon = "wi-thunderstorm"; }
+      else if (ww === 18) { descriptor = "Squalls"; icon = "wi-strong-wind"; }
+      else if (ww === 19) { descriptor = "Funnel Cloud / Tornado"; icon = "wi-tornado"; }
+      else if (ww >= 20 && ww <= 29) { 
+        const cloudInfo = getCloudDescriptorAndIcon(cloudCover, isDay); 
+        descriptor = cloudInfo.descriptor; 
+        icon = cloudInfo.icon; 
+      }
+      else if (ww >= 30 && ww <= 35) { descriptor = "Blowing Dust/Sand Storm"; icon = "wi-sandstorm"; }
+      else if (ww >= 36 && ww <= 37) { descriptor = "Drifting Snow (Low)"; icon = "wi-snow-wind"; }
+      else if (ww >= 38 && ww <= 39) { descriptor = "Blowing Snow (High)"; icon = "wi-snowflake-cold"; }
+      else if (ww >= 40 && ww <= 49) { descriptor = "Fog"; icon = "wi-fog"; }
+      else if (ww >= 50 && ww <= 55) { descriptor = "Light Drizzle"; icon = "wi-sprinkle"; }
+      else if (ww >= 56 && ww <= 59) { descriptor = "Freezing Drizzle"; icon = "wi-rain-mix"; }
+      else if (ww >= 60 && ww <= 65) { descriptor = "Steady Rain"; icon = "wi-rain"; }
+      else if (ww >= 66 && ww <= 67) { descriptor = "Freezing Rain"; icon = "wi-rain-wind"; }
+      else if (ww >= 68 && ww <= 69) { descriptor = "Rain & Snow Mix"; icon = "wi-sleet"; }
+      else if (ww >= 70 && ww <= 75) { descriptor = "Steady Snow"; icon = "wi-snow"; }
+      else if (ww >= 76 && ww <= 78) { descriptor = "Diamond Dust / Snow Grains"; icon = "wi-snowflake-cold"; }
+      else if (ww === 79) { descriptor = "Ice Pellets"; icon = "wi-sleet"; }
+      else if (ww >= 80 && ww <= 82) { descriptor = "Rain Showers"; icon = "wi-showers"; }
+      else if (ww >= 83 && ww <= 84) { descriptor = "Mixed Showers"; icon = "wi-storm-showers"; }
+      else if (ww >= 85 && ww <= 89) { descriptor = "Hail / Snow Showers"; icon = "wi-hail"; }
+      else if (ww >= 90 && ww <= 95) { descriptor = "Thunderstorm"; icon = "wi-thunderstorm"; }
+      else if (ww === 96 || ww === 99) { descriptor = "Thunderstorm with Hail"; icon = "wi-hail"; }
+      else if (ww === 98) { descriptor = "TS with Dust / Sandstorm"; icon = "wi-tornado"; }
+      
+      if (ww >= 0 && ww <= 3 && Number.isFinite(cloudCover) && cloudCover >= 0) {
+        const cloudInfo = getCloudDescriptorAndIcon(cloudCover, isDay);
+        descriptor = cloudInfo.descriptor;
+        icon = cloudInfo.icon;
+      }
+      return { icon, descriptor };
+    }
+
+    function getCloudDescriptorAndIcon(cloudCoverPercent, isDay) {
+      if (!Number.isFinite(cloudCoverPercent) || cloudCoverPercent < 0) return { descriptor: "Partly Cloudy", icon: "wi-cloud" };
+      if (cloudCoverPercent <= 3) return { descriptor: "Clear", icon: isDay ? "wi-day-sunny" : "wi-night-clear" };
+      if (cloudCoverPercent <= 9) return { descriptor: "Mostly Clear", icon: isDay ? "wi-day-sunny-overcast" : "wi-night-alt-partly-cloudy" };
+      if (cloudCoverPercent <= 24) return { descriptor: "Few Clouds", icon: isDay ? "wi-day-sunny-overcast" : "wi-night-alt-partly-cloudy" };
+      if (cloudCoverPercent <= 49) return { descriptor: "Partly Cloudy", icon: "wi-cloud" };
+      if (cloudCoverPercent <= 75) return { descriptor: "Mostly Cloudy", icon: "wi-cloudy" };
+      return { descriptor: "Overcast", icon: "wi-overcast" };
+    }
+
+    // Resolves Font Glyph class to matching SVG symbol ID
+    function getSvgSymbolId(iconClass, isDay) {
+      if (iconClass.includes('day-sunny-overcast')) return 'svg-partly-cloudy-day';
+      if (iconClass.includes('day-sunny')) return 'svg-clear-day';
+      if (iconClass.includes('night-clear')) return 'svg-clear-night';
+      if (iconClass.includes('night-alt-partly-cloudy')) return 'svg-partly-cloudy-night';
+      if (iconClass.includes('cloudy')) return 'svg-cloudy';
+      if (iconClass.includes('overcast')) return 'svg-overcast';
+      if (iconClass.includes('cloud')) return 'svg-cloud-single';
+      if (iconClass.includes('haze')) {
+        return isDay ? 'svg-fog' : 'svg-fog-night';
+      }
+      if (iconClass.includes('smoke')) {
+        return isDay ? 'svg-fog' : 'svg-fog-night';
+      }
+      if (iconClass.includes('fog')) {
+        return isDay ? 'svg-fog' : 'svg-fog-night';
+      }
+      if (iconClass.includes('lightning')) return 'svg-lightning';
+      if (iconClass.includes('sandstorm')) return 'svg-wind';
+      if (iconClass.includes('dust')) return 'svg-wind';
+      if (iconClass.includes('strong-wind')) return 'svg-wind';
+      if (iconClass.includes('tornado')) return 'svg-wind';
+      if (iconClass.includes('snow-wind')) return 'svg-snow';
+      if (iconClass.includes('snowflake-cold')) return 'svg-snow';
+      if (iconClass.includes('sprinkle')) return 'svg-drizzle';
+      if (iconClass.includes('rain-mix')) return 'svg-freezing-rain';
+      if (iconClass.includes('rain-wind')) return 'svg-freezing-rain';
+      if (iconClass.includes('rain')) return 'svg-rain';
+      if (iconClass.includes('sleet')) return 'svg-sleet';
+      if (iconClass.includes('snow')) return 'svg-snow';
+      if (iconClass.includes('showers')) return 'svg-rain';
+      if (iconClass.includes('storm-showers')) return 'svg-lightning';
+      if (iconClass.includes('hail')) return 'svg-freezing-rain';
+      if (iconClass.includes('thunderstorm')) return 'svg-lightning';
+      return 'svg-cloudy';
+    }
+
+    // Categorization helper for filters
+    function getCategory(ww) {
+      if (ww >= 0 && ww <= 3) return 'clear';
+      if (ww >= 20 && ww <= 29) return 'clear'; // Cloud cover based
+      if ((ww >= 50 && ww <= 69) || (ww >= 80 && ww <= 84) || (ww >= 14 && ww <= 16)) return 'rain';
+      if ((ww >= 70 && ww <= 79) || (ww >= 85 && ww <= 89)) return 'snow';
+      if ((ww >= 4 && ww <= 12) || (ww >= 30 && ww <= 49)) return 'fog';
+      if ((ww >= 90 && ww <= 99) || (ww >= 13 && ww <= 19)) return 'storm';
+      return 'clear';
+    }
+
+    // Application state
+    const state = {
+      isDay: true,
+      cloudCover: 45,
+      searchQuery: '',
+      activeFilter: 'all',
+      selectedCode: null
+    };
+
+    // DOM Elements
+    const body = document.body;
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const exportJsonBtn = document.getElementById('exportJson');
+    const dayBtn = document.getElementById('stateDay');
+    const nightBtn = document.getElementById('stateNight');
+    const cloudSlider = document.getElementById('cloudCoverSlider');
+    const cloudLabel = document.getElementById('cloudLabel');
+    const searchInput = document.getElementById('searchInput');
+    const categoryChips = document.getElementById('categoryChips');
+    const tableBody = document.getElementById('tableBody');
+    const detailsPlaceholder = document.getElementById('detailsPlaceholder');
+    const detailsContent = document.getElementById('detailsContent');
+
+    // Setup Theme toggle
+    themeToggleBtn.addEventListener('click', () => {
+      body.classList.toggle('light-theme');
+      const isLight = body.classList.contains('light-theme');
+      themeIcon.className = isLight ? 'wi wi-night-clear' : 'wi wi-day-sunny';
+    });
+
+    // Setup Export JSON functionality
+    exportJsonBtn.addEventListener('click', () => {
+      const exportData = [];
+      for (let i = 0; i <= 99; i++) {
+        const mapping = getWeatherMapping(i, state.isDay, state.cloudCover);
+        const svgId = getSvgSymbolId(mapping.icon, state.isDay);
+        exportData.push({
+          code: i,
+          codeString: String(i).padStart(2, '0'),
+          description: mapping.descriptor,
+          fontGlyphClass: mapping.icon,
+          svgSymbolId: svgId,
+          isInteractive: (i >= 0 && i <= 3) || (i >= 20 && i <= 29) || i === 5
+        });
+      }
+      
+      const jsonStr = JSON.stringify(exportData, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `wmo-weather-mapping-reference.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    // Day/Night switches
+    dayBtn.addEventListener('click', () => {
+      dayBtn.classList.add('active');
+      nightBtn.classList.remove('active');
+      state.isDay = true;
+      renderTable();
+      updateDetailsPanel();
+    });
+
+    nightBtn.addEventListener('click', () => {
+      nightBtn.classList.add('active');
+      dayBtn.classList.remove('active');
+      state.isDay = false;
+      renderTable();
+      updateDetailsPanel();
+    });
+
+    // Cloud cover slider
+    cloudSlider.addEventListener('input', (e) => {
+      state.cloudCover = Number(e.target.value);
+      cloudLabel.textContent = `${state.cloudCover}%`;
+      renderTable();
+      updateDetailsPanel();
+    });
+
+    // Search input
+    searchInput.addEventListener('input', (e) => {
+      state.searchQuery = e.target.value.toLowerCase().trim();
+      renderTable();
+    });
+
+    // Filters
+    categoryChips.addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip-btn');
+      if (!chip) return;
+      
+      Array.from(categoryChips.children).forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      state.activeFilter = chip.dataset.filter;
+      renderTable();
+    });
+
+    // Copy to clipboard helper
+    function copyText(text, btnElement, labelText) {
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btnElement.innerHTML;
+        btnElement.innerHTML = `<span style="color: var(--success)">✓ Copied!</span>`;
+        setTimeout(() => {
+          btnElement.innerHTML = originalText;
+        }, 1500);
+      }).catch(() => {
+        alert("Clipboard copy failed. Please copy manually.");
+      });
+    }
+
+    // Update Details Drawer
+    function updateDetailsPanel() {
+      if (state.selectedCode === null) {
+        detailsPlaceholder.style.display = 'flex';
+        detailsContent.style.display = 'none';
+        return;
+      }
+
+      detailsPlaceholder.style.display = 'none';
+      detailsContent.style.display = 'block';
+
+      const code = state.selectedCode;
+      const mapping = getWeatherMapping(code, state.isDay, state.cloudCover);
+      const symbolId = getSvgSymbolId(mapping.icon, state.isDay);
+      const cat = getCategory(code);
+      const codeStr = String(code).padStart(2, '0');
+
+      const isInteractive = (code >= 0 && code <= 3) || (code >= 20 && code <= 29) || code === 5;
+
+      // Extract symbol raw SVG content from DOM to show in details
+      const symbolElement = document.getElementById(symbolId);
+      const svgSourceCode = symbolElement ? symbolElement.innerHTML.trim() : "";
+      
+      const fontGlyphHTML = `<i class="wi ${mapping.icon}"></i>`;
+      const fullSVGTag = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">\n  ${svgSourceCode.replace(/\n/g, '\n  ')}\n</svg>`;
+
+      const cdnSvgContainerId = "detail-cdn-svg";
+      const cdnSvgHTML = svgAdapter.getSvgSync(mapping.icon, cdnSvgContainerId, (el, svgText) => {
+        el.innerHTML = svgText;
+        const pre = document.getElementById('cdn-svg-snippet');
+        if (pre) {
+          pre.textContent = svgText;
+        }
+      });
+      
+      const isCached = cdnSvgHTML && !cdnSvgHTML.includes('svg-loading-spinner');
+      const initialCdnSvgSource = isCached ? cdnSvgHTML : "Loading from CDN...";
+
+      detailsContent.innerHTML = `
+        <div class="details-header">
+          <div class="details-title-group">
+            <span class="badge-category">${cat}</span>
+            <h3 style="margin-top: 0.5rem; font-size: 1.5rem; font-weight: 800;">WMO Code ${codeStr}</h3>
+          </div>
+          <span class="badge-wmo" style="font-size: 1.1rem; padding: 0.4rem 0.8rem;">${codeStr}</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Current Mapping Name</span>
+          <p style="font-size: 1.1rem; font-weight: 600; color: var(--accent);">${mapping.descriptor}</p>
+          ${isInteractive ? `
+            <div class="tag-interactive" style="align-self: flex-start; margin-top: 0.1rem;">
+              ⚡ Dynamic (depends on Day/Night & Cloud Cover)
+            </div>
+          ` : ''}
+        </div>
+
+        <div class="preview-showcase">
+          <div class="preview-box">
+            <span>Animated SVG</span>
+            <div class="large-svg">
+              <svg class="weather-svg tr-hover-animated ${mapping.icon === 'wi-cloud' ? 'partly-cloudy' : ''}" viewBox="0 0 64 64">
+                <use href="#${symbolId}"></use>
+              </svg>
+            </div>
+          </div>
+          <div class="preview-box">
+            <span>Font Glyph</span>
+            <div class="large-glyph">
+              <i class="wi ${mapping.icon} tr-hover-animated"></i>
+            </div>
+          </div>
+          <div class="preview-box">
+            <span>CDN SVG</span>
+            <div class="large-svg" id="${cdnSvgContainerId}" data-icon="${mapping.icon}">
+              ${cdnSvgHTML}
+            </div>
+          </div>
+        </div>
+
+        <div class="code-export-section">
+          <div>
+            <div class="code-block-header">
+              <span>Font Glyph Class / HTML</span>
+              <button class="copy-btn" id="copyGlyphBtn">
+                <i class="wi wi-cloud"></i> Copy Code
+              </button>
+            </div>
+            <pre class="code-snippet">${fontGlyphHTML}</pre>
+          </div>
+
+          <div>
+            <div class="code-block-header">
+              <span>Local Animated SVG Output</span>
+              <button class="copy-btn" id="copySvgBtn">
+                <i class="wi wi-cloud"></i> Copy SVG
+              </button>
+            </div>
+            <pre class="code-snippet" style="max-height: 180px;">${escapeHtml(fullSVGTag)}</pre>
+          </div>
+
+          <div>
+            <div class="code-block-header">
+              <span>Clean CDN SVG Output</span>
+              <button class="copy-btn" id="copyCdnSvgBtn">
+                <i class="wi wi-cloud"></i> Copy CDN SVG
+              </button>
+            </div>
+            <pre class="code-snippet" id="cdn-svg-snippet" style="max-height: 180px;">${escapeHtml(initialCdnSvgSource)}</pre>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('copyGlyphBtn').addEventListener('click', function() {
+        copyText(fontGlyphHTML, this, 'Glyph HTML');
+      });
+
+      document.getElementById('copySvgBtn').addEventListener('click', function() {
+        copyText(fullSVGTag, this, 'SVG');
+      });
+
+      document.getElementById('copyCdnSvgBtn').addEventListener('click', function() {
+        const text = document.getElementById('cdn-svg-snippet').textContent;
+        copyText(text, this, 'CDN SVG');
+      });
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    // Render Table logic
+    function renderTable() {
+      const rows = [];
+      const query = state.searchQuery;
+      const filter = state.activeFilter;
+
+      for (let i = 0; i <= 99; i++) {
+        const mapping = getWeatherMapping(i, state.isDay, state.cloudCover);
+        const codeStr = String(i).padStart(2, '0');
+        const cat = getCategory(i);
+        const isInteractive = (i >= 0 && i <= 3) || (i >= 20 && i <= 29) || i === 5;
+
+        // Search matches
+        const matchesQuery = !query || 
+                             i === Number(query) || 
+                             codeStr.includes(query) || 
+                             mapping.descriptor.toLowerCase().includes(query) || 
+                             mapping.icon.toLowerCase().includes(query);
+
+        // Filter matches
+        const matchesFilter = filter === 'all' || cat === filter;
+
+        if (matchesQuery && matchesFilter) {
+          const activeClass = state.selectedCode === i ? 'active' : '';
+          const containerId = `svg-container-${i}`;
+          const svgHTML = svgAdapter.getSvgSync(mapping.icon, containerId, (el, svgText) => {
+            el.innerHTML = svgText;
+          });
+
+          rows.push(`
+            <tr class="${activeClass} tr-hover-animated" onclick="selectRow(${i})" data-code="${i}">
+              <td>
+                <span class="badge-wmo">${codeStr}</span>
+              </td>
+              <td>
+                <div style="font-weight: 600; font-size: 0.95rem; color: var(--accent);">${mapping.descriptor}</div>
+                ${isInteractive ? `
+                  <div class="tag-interactive" style="margin-top: 0.3rem;">
+                    ⚡ Dynamic
+                  </div>
+                ` : ''}
+              </td>
+              <td style="text-align: center;">
+                <div class="glyph-display">
+                  <i class="wi ${mapping.icon} wi-table-icon"></i>
+                  <span class="icon-class-label">${mapping.icon}</span>
+                </div>
+              </td>
+              <td style="text-align: center;">
+                <div class="svg-preview-cell" id="${containerId}" data-icon="${mapping.icon}">
+                  ${svgHTML}
+                </div>
+              </td>
+            </tr>
+          `);
+        }
+      }
+
+      if (rows.length === 0) {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="4" style="text-align: center; padding: 4rem 2rem; color: var(--text-muted);">
+              <i class="wi wi-alien" style="font-size: 2.5rem; display: block; margin-bottom: 0.75rem;"></i>
+              No matching WMO codes found for "${escapeHtml(query)}".
+            </td>
+          </tr>
+        `;
+      } else {
+        tableBody.innerHTML = rows.join('');
+      }
+    }
+
+    // Row selection handler
+    window.selectRow = function(code) {
+      state.selectedCode = code;
+      
+      // Update highlights in table
+      const trs = tableBody.querySelectorAll('tr');
+      trs.forEach(tr => {
+        if (Number(tr.dataset.code) === code) {
+          tr.classList.add('active');
+        } else {
+          tr.classList.remove('active');
+        }
+      });
+
+      updateDetailsPanel();
+    };
+
+    // Initialize Page
+    renderTable();
+    updateDetailsPanel();
+  </script>
+</body>
+</html>
