@@ -27,4 +27,4 @@ Public GitHub tags are the immutable wx-font release source. npm publishing is i
 - Release smoke proof fetches the resolver module, all CSS entrypoints, WOFF2, TTF, SVG, `codepoints.json`, and `wmo-contract.json` from tagged esm.sh URLs, then renders a browser fixture for direct, compatibility, and WMO classes.
 - Update generated README hosting instructions only after the tagged esm.sh smoke proof passes.
 
-Current caveat: exact CSS-relative font routing and asset content types are unproven until `epsilonode/wx-font` has its first public tag.
+Evidence: public `epsilonode/wx-font` tag `v0.1.0` passed `mise run release-assets-verify`, fetching all 11 manifest assets and the CSS-relative WOFF2 font through esm.sh.

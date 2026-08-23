@@ -194,7 +194,8 @@
 @note npm publishing is out of scope and package metadata must prevent accidental publication.
 - [x] @accept release assets are served from tagged esm.sh GitHub paths rather than npm
 - [x] @accept dist is committed for releases and regenerated only through the project pipeline
-- [ ] @accept prove tagged esm.sh module and asset delivery with the first public release
+- [x] @accept prove tagged esm.sh module and asset delivery with the first public release
+@evidence 2026-08-23 public epsilonode/wx-font v0.1.0 passed release-assets-verify for all manifest assets and CSS-relative WOFF2 routing
 
 ### @unknown @dropped npm scope and cdn publish proof
 @memory ../memories/wx-font/decisions/2026-08-23-github-esm-release-delivery.md
